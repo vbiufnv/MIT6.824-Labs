@@ -50,6 +50,14 @@ type ApplyMsg struct {
 	SnapshotIndex int
 }
 
+type State string
+const (	
+	Follower = "Follower"
+	Candidate = "Candidate"
+	Leader = "Leader"
+)
+
+
 // A Go object implementing a single Raft peer.
 type Raft struct {
 	mu        sync.Mutex          // Lock to protect shared access to this peer's state
@@ -61,8 +69,22 @@ type Raft struct {
 	// Your data here (3A, 3B, 3C).
 	// Look at the paper's Figure 2 for a description of what
 	// state a Raft server must maintain.
+	//3A:
+	state	State
+	currentTerm int
+	votedFor int
+	timeout 	*time.Timer
+	heartBeat	*time.Timer
 
+	commitIndex int
+	lastApplied int
+
+	//leader:
+	nextIndex []ApplyMsg
+	matchIndex []ApplyMsg
 }
+
+
 
 // return currentTerm and whether this server
 // believes it is the leader.
@@ -71,6 +93,12 @@ func (rf *Raft) GetState() (int, bool) {
 	var term int
 	var isleader bool
 	// Your code here (3A).
+	term=rf.currentTerm
+	if rf.state==Leader{
+		isleader=true
+	}else{
+		isleader=false
+	}
 	return term, isleader
 }
 
@@ -128,17 +156,31 @@ func (rf *Raft) Snapshot(index int, snapshot []byte) {
 // field names must start with capital letters!
 type RequestVoteArgs struct {
 	// Your data here (3A, 3B).
+	term int
+	candidateID int
+	lastLogIndex int
+	lastLogTerm int
 }
 
 // example RequestVote RPC reply structure.
 // field names must start with capital letters!
 type RequestVoteReply struct {
 	// Your data here (3A).
+	term int
+	voteGranted bool
 }
 
 // example RequestVote RPC handler.
 func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// Your code here (3A, 3B).
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	if args.term<rf.currentTerm||(args.term==rf.currentTerm&&rf.votedFor!=-1&&rf.votedFor!=args.candidateID){
+		reply.term=rf.currentTerm
+		reply.voteGranted=false
+	}
+
+	
 }
 
 // example code to send a RequestVote RPC to a server.
@@ -247,6 +289,12 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.me = me
 
 	// Your initialization code here (3A, 3B, 3C).
+	rf.state=Follower
+	rf.currentTerm=0
+	rf.votedFor=-1
+	rf.timeout=time.NewTimer(RandomTimeOut())
+	rf.heartBeat=time.NewTimer(100*time.Millisecond)
+
 
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
@@ -254,6 +302,13 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	// start ticker goroutine to start elections
 	go rf.ticker()
 
-
 	return rf
 }
+
+func RandomTimeOut() time.Duration {
+	r:=rand.New(rand.NewSource(time.Now().UnixNano()))
+	delay:=r.Intn(151)+300
+	duration:=time.Duration(delay)*time.Millisecond
+	return duration 
+}
+

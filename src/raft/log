@@ -1,0 +1,65 @@
+Test (3A): initial election ...
+2024/11/16 17:42:43 ticker:Follower 1 timeout,Term:0
+2024/11/16 17:42:43 ticker:Follower 2 timeout,Term:0
+2024/11/16 17:42:43 ticker:Follower 0 timeout,Term:0
+  ... Passed --   3.1  3   58   11128    0
+Test (3A): election after network failure ...
+2024/11/16 17:42:46 ticker:Follower 0 timeout,Term:0
+2024/11/16 17:42:46 leader1: 0
+2024/11/16 17:42:46 ticker:Follower 2 timeout,Term:1
+2024/11/16 17:42:47 leader2: 2
+2024/11/16 17:42:47 ticker:Follower 1 timeout,Term:2
+2024/11/16 17:42:47 ticker:Follower 0 timeout,Term:2
+2024/11/16 17:42:48 ticker:Candidate 0 timeout,Term:3
+2024/11/16 17:42:48 ticker:Candidate 1 timeout,Term:3
+2024/11/16 17:42:48 ticker:Candidate 0 timeout,Term:4
+2024/11/16 17:42:48 ticker:Candidate 1 timeout,Term:4
+2024/11/16 17:42:48 ticker:Candidate 0 timeout,Term:5
+2024/11/16 17:42:48 ticker:Candidate 1 timeout,Term:5
+2024/11/16 17:42:49 ticker:Candidate 1 timeout,Term:6
+2024/11/16 17:42:49 ticker:Candidate 0 timeout,Term:6
+2024/11/16 17:42:49 1 ok
+2024/11/16 17:42:49 ticker:Candidate 0 timeout,Term:7
+2024/11/16 17:42:49 ticker:Candidate 1 timeout,Term:7
+2024/11/16 17:42:50 ticker:Candidate 0 timeout,Term:8
+2024/11/16 17:42:50 3 ok
+2024/11/16 17:42:51 4 ok
+  ... Passed --   5.0  3  129   18194    0
+Test (3A): multiple elections ...
+2024/11/16 17:42:51 ticker:Follower 2 timeout,Term:0
+2024/11/16 17:42:51 ticker:Follower 4 timeout,Term:1
+2024/11/16 17:42:51 ticker:Follower 3 timeout,Term:1
+2024/11/16 17:42:51 ticker:Follower 0 timeout,Term:1
+2024/11/16 17:42:51 ticker:Follower 1 timeout,Term:1
+2024/11/16 17:42:52 ticker:Candidate 3 timeout,Term:2
+2024/11/16 17:42:52 ticker:Candidate 1 timeout,Term:2
+2024/11/16 17:42:52 ticker:Candidate 0 timeout,Term:2
+2024/11/16 17:42:52 ticker:Candidate 1 timeout,Term:3
+2024/11/16 17:42:52 ticker:Candidate 0 timeout,Term:3
+2024/11/16 17:42:52 ticker:Follower 6 timeout,Term:3
+2024/11/16 17:42:53 ticker:Candidate 0 timeout,Term:4
+2024/11/16 17:42:53 ticker:Candidate 6 timeout,Term:4
+2024/11/16 17:42:53 ticker:Follower 3 timeout,Term:4
+2024/11/16 17:42:53 ticker:Candidate 0 timeout,Term:5
+2024/11/16 17:42:53 ticker:Follower 5 timeout,Term:5
+2024/11/16 17:42:53 ticker:Candidate 3 timeout,Term:5
+2024/11/16 17:42:53 ticker:Candidate 0 timeout,Term:6
+2024/11/16 17:42:54 ticker:Candidate 5 timeout,Term:6
+2024/11/16 17:42:54 ticker:Candidate 0 timeout,Term:7
+2024/11/16 17:42:54 ticker:Follower 1 timeout,Term:5
+2024/11/16 17:42:54 ticker:Follower 2 timeout,Term:5
+2024/11/16 17:42:54 ticker:Candidate 0 timeout,Term:8
+2024/11/16 17:42:54 ticker:Candidate 2 timeout,Term:6
+2024/11/16 17:42:54 ticker:Follower 6 timeout,Term:7
+2024/11/16 17:42:55 ticker:Candidate 6 timeout,Term:8
+2024/11/16 17:42:55 ticker:Follower 1 timeout,Term:9
+2024/11/16 17:42:55 ticker:Candidate 6 timeout,Term:9
+2024/11/16 17:42:55 ticker:Candidate 1 timeout,Term:10
+2024/11/16 17:42:55 ticker:Follower 3 timeout,Term:9
+2024/11/16 17:42:56 ticker:Candidate 1 timeout,Term:11
+2024/11/16 17:42:56 ticker:Follower 0 timeout,Term:10
+2024/11/16 17:42:56 ticker:Follower 5 timeout,Term:10
+2024/11/16 17:42:56 ticker:Follower 4 timeout,Term:10
+  ... Passed --   6.1  7  710  101146    0
+PASS
+ok  	6.5840/raft	14.282s

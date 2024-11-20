@@ -373,6 +373,7 @@ func (cfg *config) connect(i int) {
 			cfg.net.Enable(endname, true)
 		}
 	}
+
 }
 
 // detach server i from the net.
